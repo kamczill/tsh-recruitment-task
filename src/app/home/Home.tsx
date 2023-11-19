@@ -1,32 +1,62 @@
-import { Fragment } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
-import { AppRoute } from 'routing/AppRoute.enum';
-import { AppLocale } from 'context/locale/AppLocale.enum';
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { useAuth } from 'hooks/useAuth/useAuth';
-import { useUsers } from 'hooks/useUsers/useUsers';
-import { useNavigate } from 'hooks/useNavigate/useNavigate';
-import { Translation } from 'ui/translation/Translation';
-import { LocationInfo } from 'ui/locationInfo/LocationInfo';
+import { ProductCard } from 'ui/productCard/ProductCard';
+import axiosClient from 'api/axios';
 
 export const Home = () => {
-  const { locale, setLocale } = useLocale();
-  const { user, login, logout, isAuthenticated, isAuthenticating } = useAuth();
+  const getProducts = async () => {
+    try {
+      const response = await axiosClient('/products?limit=8');
+      return response.data; // Ensure you return the data from the function
+    } catch (err) {
+      throw err; // Rethrow the error so React Query can catch it
+    }
+  };
 
   const {
-    data: usersResponse,
-    isFetching: isFetchingUsers,
-    isFetched: areUsersFetched,
-    hasNextPage: hasMoreUsers,
-    fetchNextPage: loadMoreUsers,
-    isFetchingNextPage,
-  } = useUsers();
+    isLoading,
+    isError,
+    data, // This will hold the products data
+    error,
+  } = useQuery(['products'], getProducts); // Changed the query key to 'products'
 
-  const navigate = useNavigate();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  // const {
+  //   data: usersResponse,
+  //   isFetching: isFetchingUsers,
+  //   isFetched: areUsersFetched,
+  //   hasNextPage: hasMoreUsers,
+  //   fetchNextPage: loadMoreUsers,
+  //   isFetchingNextPage,
+  // } = useUsers();
 
   return (
     <>
-      <h2>Home</h2>
+      <div className="w-full flex justify-center">
+        <div className="flex flex-wrap justify-center gap-6 mt-6 lg:max-w-[1224px]">
+          {data?.items.map((prod) => (
+            <ProductCard
+              key={prod.id}
+              active={prod.active}
+              description={prod.description}
+              id={prod.id}
+              image={prod.image}
+              promo={prod.promo}
+              rating={prod.rating}
+              name={prod.name}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* <h2>Home</h2>
       <p>
         <Translation id="home.helloWorld" />
         <span style={{ margin: '0 1rem' }}>&#x2190;</span>
@@ -90,7 +120,7 @@ export const Home = () => {
             Load more
           </button>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

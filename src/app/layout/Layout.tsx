@@ -5,9 +5,9 @@ import { Navbar } from 'ui/navbar/Navbar';
 
 export const Layout = () => {
   return (
-    <div className="app">
+    <div className="min-h-screen">
       <Navbar />
-      <main className="app__main">
+      <main className="mx-6">
         <Outlet />
       </main>
     </div>
