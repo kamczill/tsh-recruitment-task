@@ -1,3 +1,5 @@
+export * from './promoBadge/PromoBadge';
+export * from './productButton/ProductButton';
 export * from './codeBlock/CodeBlock';
 export * from './loader/Loader';
 export * from './locationInfo/LocationInfo';
