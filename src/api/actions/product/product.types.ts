@@ -3,7 +3,7 @@
 type rating = 1 | 2 | 3 | 4 | 5;
 type URL = `http://${string}` | `https://${string}`;
 
-export type ProductItem = {
+export type GetProductDetailQueryResponse = {
   active: boolean;
   description: string;
   id: string;
@@ -22,7 +22,7 @@ export type Meta = {
 };
 
 export type GetProductsQueryResponse = {
-  items: ProductItem[];
+  items: GetProductDetailQueryResponse[];
   meta: Meta;
 };
 
