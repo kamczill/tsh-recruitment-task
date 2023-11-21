@@ -1,10 +1,13 @@
 import { ProductButtonProps } from './ProductButton.types';
 
-export const ProductButton = ({ active }: ProductButtonProps) => {
+export const ProductButton = ({ active, onClick }: ProductButtonProps) => {
   return (
     <>
       {active ? (
-        <button className="bg-primaryBlue text-white rounded-lg w-full text-center py-3 text-sm leading-4">
+        <button
+          onClick={onClick}
+          className="bg-primaryBlue text-white rounded-lg w-full text-center py-3 text-sm leading-4 hover:bg-darkBlue"
+        >
           Show details
         </button>
       ) : (
