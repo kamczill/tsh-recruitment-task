@@ -1,3 +1,5 @@
+export * from './modal/Modal';
+export * from './noSearchResults/NoSearchResults';
 export * from './promoBadge/PromoBadge';
 export * from './productButton/ProductButton';
 export * from './codeBlock/CodeBlock';
