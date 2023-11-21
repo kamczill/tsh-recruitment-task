@@ -22,6 +22,7 @@ export const SearchField = () => {
       } else {
         value ? searchParams.set(key, value) : searchParams.delete(key);
       }
+      searchParams.delete('page');
       setSearchParams(searchParams);
     }, 500);
 
@@ -43,7 +44,7 @@ export const SearchField = () => {
       <div className="max-h-[48px] flex justify-between items-center px-4  border border-lighterGray rounded-xl overflow-hidden lg:w-full lg:max-w-[348px]">
         <input
           placeholder="Search"
-          className="py-3 placeholder-almostBlack focus:outline-none"
+          className="py-3 w-full placeholder-almostBlack focus:outline-none"
           value={searchValue}
           onChange={handleChangeSearchValue}
         />
