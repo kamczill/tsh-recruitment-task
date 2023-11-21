@@ -1,10 +1,6 @@
 import { CheckIcon } from 'assets/icons/CheckIcon';
 
-type CheckboxProps = {
-  label: string;
-  checked: boolean;
-  onChange: () => void;
-};
+import { CheckboxProps } from './CheckboxWithLabel.types';
 
 export const CheckboxWithLabel = ({ label, checked, onChange }: CheckboxProps) => {
   return (
